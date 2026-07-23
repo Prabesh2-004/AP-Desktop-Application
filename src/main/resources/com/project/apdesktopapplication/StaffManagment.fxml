@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.project.apdesktopapplication.StaffController"
+            prefWidth="1300"
+            prefHeight="800"
+            style="-fx-background-color:#F4F6F9;">
+
+    <!-- Header -->
+    <top>
+
+        <HBox spacing="20"
+              alignment="CENTER_LEFT"
+              style="-fx-background-color:#1E3A5F;"
+              prefHeight="70">
+
+            <padding>
+                <Insets top="15" right="25" bottom="15" left="25"/>
+            </padding>
+
+            <Label text="Campus Resource &amp; Study Space Booking System"
+                   style="-fx-text-fill:white;
+                          -fx-font-size:22;
+                          -fx-font-weight:bold;"/>
+
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <Label text="Staff Dashboard"
+                   style="-fx-text-fill:white;
+                          -fx-font-size:18;"/>
+
+            <Button text="Logout"
+                    fx:id="logoutButton"
+                    style="-fx-background-color:#E74C3C;
+                           -fx-text-fill:white;
+                           -fx-font-weight:bold;"/>
+        </HBox>
+
+    </top>
+
+    <!-- Left Menu -->
+    <left>
+
+        <VBox spacing="15"
+              prefWidth="230"
+              style="-fx-background-color:white;">
+
+            <padding>
+                <Insets top="25" left="15"/>
+            </padding>
+
+            <Button text="🏠 Dashboard" maxWidth="Infinity"/>
+            <Button text="🔍 Search Resources" maxWidth="Infinity"/>
+            <Button text="📚 Book Resource" maxWidth="Infinity"/>
+            <Button text="✔ Approve Booking" maxWidth="Infinity"/>
+            <Button text="❌ Reject Booking" maxWidth="Infinity"/>
+
+        </VBox>
+
+    </left>
+
+    <!-- Main Content -->
+    <center>
+
+        <VBox spacing="20">
+
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <HBox spacing="10">
+
+                <TextField fx:id="searchField"
+                           promptText="Search resource..."
+                           prefWidth="350"/>
+
+                <Button text="Search"/>
+
+            </HBox>
+
+            <Label text="Available Resources"
+                   style="-fx-font-size:18;
+                          -fx-font-weight:bold;"/>
+
+            <TableView fx:id="resourceTable"
+                       prefHeight="280">
+
+                <columns>
+
+                    <TableColumn text="ID" prefWidth="80"/>
+
+                    <TableColumn text="Type" prefWidth="170"/>
+
+                    <TableColumn text="Location" prefWidth="180"/>
+
+                    <TableColumn text="Capacity" prefWidth="120"/>
+
+                    <TableColumn text="Availability" prefWidth="150"/>
+
+                    <TableColumn text="Action" prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+            <Label text="Pending Booking Requests"
+                   style="-fx-font-size:18;
+                          -fx-font-weight:bold;"/>
+
+            <TableView fx:id="bookingTable"
+                       prefHeight="250">
+
+                <columns>
+
+                    <TableColumn text="Booking ID" prefWidth="130"/>
+
+                    <TableColumn text="Student" prefWidth="180"/>
+
+                    <TableColumn text="Resource" prefWidth="170"/>
+
+                    <TableColumn text="Date" prefWidth="160"/>
+
+                    <TableColumn text="Status" prefWidth="120"/>
+
+                </columns>
+
+            </TableView>
+
+            <HBox spacing="15"
+                  alignment="CENTER_RIGHT">
+
+                <Button text="Approve"
+                        style="-fx-background-color:#27AE60;
+                               -fx-text-fill:white;
+                               -fx-font-weight:bold;"/>
+
+                <Button text="Reject"
+                        style="-fx-background-color:#E74C3C;
+                               -fx-text-fill:white;
+                               -fx-font-weight:bold;"/>
+
+            </HBox>
+
+        </VBox>
+
+    </center>
+
+</BorderPane>
