@@ -6,146 +6,775 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.project.apdesktopapplication.StaffController"
-            prefWidth="1300"
-            prefHeight="800"
-            style="-fx-background-color:#F4F6F9;">
+            prefWidth="1440"
+            prefHeight="900"
+            stylesheets="@staff.css"
+            styleClass="root">
 
-    <!-- Header -->
+    <!-- ================= HEADER ================= -->
+
     <top>
 
-        <HBox spacing="20"
-              alignment="CENTER_LEFT"
-              style="-fx-background-color:#1E3A5F;"
-              prefHeight="70">
+        <HBox alignment="CENTER_LEFT"
+              spacing="15"
+              prefHeight="75"
+              styleClass="header">
 
             <padding>
-                <Insets top="15" right="25" bottom="15" left="25"/>
+                <Insets top="15"
+                        right="25"
+                        bottom="15"
+                        left="25"/>
             </padding>
 
-            <Label text="Campus Resource &amp; Study Space Booking System"
-                   style="-fx-text-fill:white;
-                          -fx-font-size:22;
-                          -fx-font-weight:bold;"/>
+            <Label text="🏢"
+                   style="-fx-font-size:30;"/>
+
+            <VBox spacing="3">
+
+                <Label text="Campus Resource Booking"
+                       styleClass="header-title"/>
+
+                <Label text="Staff Resource Management Portal"
+                       styleClass="header-subtitle"/>
+
+            </VBox>
 
             <Pane HBox.hgrow="ALWAYS"/>
 
-            <Label text="Staff Dashboard"
-                   style="-fx-text-fill:white;
-                          -fx-font-size:18;"/>
+            <TextField fx:id="searchField"
+                       promptText="Search booking requests..."
+                       prefWidth="300"/>
 
-            <Button text="Logout"
-                    fx:id="logoutButton"
-                    style="-fx-background-color:#E74C3C;
-                           -fx-text-fill:white;
-                           -fx-font-weight:bold;"/>
+            <Button text="Search"
+                    styleClass="primary-button"/>
+
+            <Label text="Welcome Staff"
+                   styleClass="welcome-label"/>
+
+            <Button fx:id="logoutBtn"
+                    text="Logout"
+                    styleClass="logout-button"/>
+
         </HBox>
 
     </top>
 
-    <!-- Left Menu -->
+    <!-- ================= SIDEBAR ================= -->
+
     <left>
 
-        <VBox spacing="15"
-              prefWidth="230"
-              style="-fx-background-color:white;">
+        <VBox prefWidth="270"
+              spacing="18"
+              styleClass="sidebar">
 
             <padding>
-                <Insets top="25" left="15"/>
+                <Insets top="25"
+                        right="20"
+                        bottom="25"
+                        left="20"/>
             </padding>
 
-            <Button text="🏠 Dashboard" maxWidth="Infinity"/>
-            <Button text="🔍 Search Resources" maxWidth="Infinity"/>
-            <Button text="📚 Book Resource" maxWidth="Infinity"/>
-            <Button text="✔ Approve Booking" maxWidth="Infinity"/>
-            <Button text="❌ Reject Booking" maxWidth="Infinity"/>
+            <Label text="Navigation"
+                   styleClass="section-title"/>
+
+            <Separator/>
+
+            <Button fx:id="dashboardBtn"
+                     text="🏠 Dashboard"
+                     maxWidth="Infinity"
+                     onAction="#handleDashboard"/>
+
+            <Button fx:id="resourcesBtn"
+                     text="📚 Resources"
+                     maxWidth="Infinity"
+                     onAction="#handleResources"/>
+
+            <Button fx:id="pendingBtn"
+                     text="📅 Pending Requests"
+                     maxWidth="Infinity"
+                     onAction="#handlePending"/>
+
+            <Button fx:id="approvedBtn"
+                     text="✔ Approved Bookings"
+                     maxWidth="Infinity"
+                     onAction="#handleApproved"/>
+
+            <Button fx:id="rejectedBtn"
+                     text="❌ Rejected Bookings"
+                     maxWidth="Infinity"
+                     onAction="#handleRejected"/>
+
+            <Separator/>
+
+            <Label text="Quick Statistics"
+                   styleClass="filter-title"/>
+
+            <Label text="Pending : 12"/>
+
+            <Label text="Approved : 46"/>
+
+            <Label text="Rejected : 8"/>
+
+            <Label text="Resources : 24"/>
 
         </VBox>
 
     </left>
 
-    <!-- Main Content -->
+    <!-- ================= CENTER ================= -->
+
     <center>
 
-        <VBox spacing="20">
+        <StackPane>
+            
+            <!-- Dashboard Page -->
+            <VBox fx:id="dashboardPage" spacing="20">
 
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
+                <padding>
+                    <Insets top="20"
+                            right="25"
+                            bottom="20"
+                            left="25"/>
+                </padding>
 
-            <HBox spacing="10">
+                <!-- Dashboard Cards -->
+                <HBox spacing="20">
 
-                <TextField fx:id="searchField"
-                           promptText="Search resource..."
-                           prefWidth="350"/>
+                    <VBox prefWidth="220"
+                          styleClass="dashboard-card">
 
-                <Button text="Search"/>
+                        <padding>
+                            <Insets top="20"
+                                    right="20"
+                                    bottom="20"
+                                    left="20"/>
+                        </padding>
 
-            </HBox>
+                        <Label text="Pending Requests"
+                               styleClass="card-title"/>
 
-            <Label text="Available Resources"
-                   style="-fx-font-size:18;
-                          -fx-font-weight:bold;"/>
+                        <Label text="12"
+                               styleClass="card-number"/>
 
-            <TableView fx:id="resourceTable"
-                       prefHeight="280">
+                    </VBox>
 
-                <columns>
+                    <VBox prefWidth="220"
+                          styleClass="dashboard-card">
 
-                    <TableColumn text="ID" prefWidth="80"/>
+                        <padding>
+                            <Insets top="20"
+                                    right="20"
+                                    bottom="20"
+                                    left="20"/>
+                        </padding>
 
-                    <TableColumn text="Type" prefWidth="170"/>
+                        <Label text="Approved Today"
+                               styleClass="card-title"/>
 
-                    <TableColumn text="Location" prefWidth="180"/>
+                        <Label text="8"
+                               styleClass="card-number"/>
 
-                    <TableColumn text="Capacity" prefWidth="120"/>
+                    </VBox>
 
-                    <TableColumn text="Availability" prefWidth="150"/>
+                    <VBox prefWidth="220"
+                          styleClass="dashboard-card">
 
-                    <TableColumn text="Action" prefWidth="120"/>
+                        <padding>
+                            <Insets top="20"
+                                    right="20"
+                                    bottom="20"
+                                    left="20"/>
+                        </padding>
 
-                </columns>
+                        <Label text="Available Resources"
+                               styleClass="card-title"/>
 
-            </TableView>
+                        <Label text="24"
+                               styleClass="card-number"/>
 
-            <Label text="Pending Booking Requests"
-                   style="-fx-font-size:18;
-                          -fx-font-weight:bold;"/>
+                    </VBox>
 
-            <TableView fx:id="bookingTable"
-                       prefHeight="250">
+                </HBox>
 
-                <columns>
+                <HBox alignment="CENTER_LEFT">
 
-                    <TableColumn text="Booking ID" prefWidth="130"/>
+                    <Label text="Pending Booking Requests"
+                           styleClass="section-title"/>
 
-                    <TableColumn text="Student" prefWidth="180"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
 
-                    <TableColumn text="Resource" prefWidth="170"/>
+                    <ComboBox promptText="Sort By"
+                              prefWidth="180"/>
 
-                    <TableColumn text="Date" prefWidth="160"/>
+                </HBox>
 
-                    <TableColumn text="Status" prefWidth="120"/>
+                <ScrollPane fitToWidth="true"
+                            VBox.vgrow="ALWAYS">
 
-                </columns>
+                    <content>
 
-            </TableView>
+                        <VBox spacing="18">
+                            <!-- ========================= BOOKING CARD 1 ========================= -->
 
-            <HBox spacing="15"
-                  alignment="CENTER_RIGHT">
+                            <HBox spacing="20"
+                                  styleClass="resource-card">
 
-                <Button text="Approve"
-                        style="-fx-background-color:#27AE60;
-                               -fx-text-fill:white;
-                               -fx-font-weight:bold;"/>
+                                <padding>
+                                    <Insets top="18" right="18" bottom="18" left="18"/>
+                                </padding>
 
-                <Button text="Reject"
-                        style="-fx-background-color:#E74C3C;
-                               -fx-text-fill:white;
-                               -fx-font-weight:bold;"/>
+                                <StackPane prefWidth="150"
+                                           prefHeight="120"
+                                           styleClass="image-placeholder">
 
-            </HBox>
+                                    <Label text="👨‍🎓"
+                                           style="-fx-font-size:50;"/>
 
-        </VBox>
+                                </StackPane>
+
+                                <VBox spacing="8"
+                                      HBox.hgrow="ALWAYS">
+
+                                    <Label text="Pratham Shrestha"
+                                           styleClass="resource-title"/>
+
+                                    <Label text="Requested Resource : Study Room A"
+                                           styleClass="resource-location"/>
+
+                                    <HBox spacing="20">
+
+                                        <Label text="📅 23 July 2026"/>
+
+                                        <Label text="⏰ 10:00 AM - 12:00 PM"/>
+
+                                        <Label text="👥 Capacity : 8"/>
+
+                                    </HBox>
+
+                                    <HBox spacing="15"
+                                          alignment="CENTER_LEFT">
+
+                                        <Label text="Pending"
+                                               styleClass="status-pending"/>
+
+                                        <Pane HBox.hgrow="ALWAYS"/>
+
+                                        <Button text="Approve"
+                                                styleClass="approve-button"/>
+
+                                        <Button text="Reject"
+                                                styleClass="reject-button"/>
+
+                                    </HBox>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <!-- ========================= BOOKING CARD 2 ========================= -->
+
+                            <HBox spacing="20"
+                                  styleClass="resource-card">
+
+                                <padding>
+                                    <Insets top="18" right="18" bottom="18" left="18"/>
+                                </padding>
+
+                                <StackPane prefWidth="150"
+                                           prefHeight="120"
+                                           styleClass="image-placeholder">
+
+                                    <Label text="👩‍🎓"
+                                           style="-fx-font-size:50;"/>
+
+                                </StackPane>
+
+                                <VBox spacing="8"
+                                      HBox.hgrow="ALWAYS">
+
+                                    <Label text="Aayush Sharma"
+                                           styleClass="resource-title"/>
+
+                                    <Label text="Requested Resource : Computer Laboratory"
+                                           styleClass="resource-location"/>
+
+                                    <HBox spacing="20">
+
+                                        <Label text="📅 24 July 2026"/>
+
+                                        <Label text="⏰ 1:00 PM - 3:00 PM"/>
+
+                                        <Label text="👥 Capacity : 30"/>
+
+                                    </HBox>
+
+                                    <HBox spacing="15">
+
+                                        <Label text="Pending"
+                                               styleClass="status-pending"/>
+
+                                        <Pane HBox.hgrow="ALWAYS"/>
+
+                                        <Button text="Approve"
+                                                styleClass="approve-button"/>
+
+                                        <Button text="Reject"
+                                                styleClass="reject-button"/>
+
+                                    </HBox>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <!-- ========================= BOOKING CARD 3 ========================= -->
+
+                            <HBox spacing="20"
+                                  styleClass="resource-card">
+
+                                <padding>
+                                    <Insets top="18" right="18" bottom="18" left="18"/>
+                                </padding>
+
+                                <StackPane prefWidth="150"
+                                           prefHeight="120"
+                                           styleClass="image-placeholder">
+
+                                    <Label text="👨‍💼"
+                                           style="-fx-font-size:50;"/>
+
+                                </StackPane>
+
+                                <VBox spacing="8"
+                                      HBox.hgrow="ALWAYS">
+
+                                    <Label text="Sujan KC"
+                                           styleClass="resource-title"/>
+
+                                    <Label text="Requested Resource : Science Laboratory"
+                                           styleClass="resource-location"/>
+
+                                    <HBox spacing="20">
+
+                                        <Label text="📅 25 July 2026"/>
+
+                                        <Label text="⏰ 9:00 AM - 11:00 AM"/>
+
+                                        <Label text="👥 Capacity : 25"/>
+
+                                    </HBox>
+
+                                    <HBox spacing="15">
+
+                                        <Label text="Pending"
+                                               styleClass="status-pending"/>
+
+                                        <Pane HBox.hgrow="ALWAYS"/>
+
+                                        <Button text="Approve"
+                                                styleClass="approve-button"/>
+
+                                        <Button text="Reject"
+                                                styleClass="reject-button"/>
+
+                                    </HBox>
+
+                                </VBox>
+
+                            </HBox>
+
+                            <!-- ========================= APPROVED BOOKINGS ========================= -->
+
+                            <Label text="Recently Approved"
+                                   styleClass="section-title"/>
+
+                            <HBox spacing="20"
+                                  styleClass="resource-card">
+
+                                <padding>
+                                    <Insets top="18" right="18" bottom="18" left="18"/>
+                                </padding>
+
+                                <StackPane prefWidth="150"
+                                           prefHeight="120"
+                                           styleClass="image-placeholder">
+
+                                    <Label text="✅"
+                                           style="-fx-font-size:45;"/>
+
+                                </StackPane>
+
+                                <VBox spacing="8"
+                                      HBox.hgrow="ALWAYS">
+
+                                    <Label text="Hari Bhandari"
+                                           styleClass="resource-title"/>
+
+                                    <Label text="Conference Room B"
+                                           styleClass="resource-location"/>
+
+                                    <HBox spacing="20">
+
+                                        <Label text="Approved by Staff"/>
+
+                                        <Label text="Today 9:45 AM"/>
+
+                                    </HBox>
+
+                                    <Label text="Approved"
+                                           styleClass="status-available"/>
+
+                                </VBox>
+
+                            </HBox>
+                        </VBox>
+
+                    </content>
+
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- Resources Page -->
+            <VBox fx:id="resourcesPage"
+                  spacing="20"
+                  visible="false"
+                  managed="false">
+
+                <padding>
+                    <Insets top="20" right="25" bottom="20" left="25"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Manage Resources"
+                           styleClass="section-title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <Button text="+ Add Resource"
+                            styleClass="button"/>
+                </HBox>
+
+                <HBox spacing="10">
+                    <TextField promptText="Search resources..."
+                               prefWidth="300"/>
+                    <ComboBox promptText="Type" prefWidth="160"/>
+                    <ComboBox promptText="Location" prefWidth="160"/>
+                    <ComboBox promptText="Availability" prefWidth="160"/>
+                    <Button text="Search" styleClass="button"/>
+                </HBox>
+
+                <TableView fx:id="resourcesTable"
+                           VBox.vgrow="ALWAYS"
+                           prefHeight="400">
+                    <columns>
+                        <TableColumn text="ID" prefWidth="60"/>
+                        <TableColumn text="Name" prefWidth="200"/>
+                        <TableColumn text="Type" prefWidth="140"/>
+                        <TableColumn text="Location" prefWidth="180"/>
+                        <TableColumn text="Capacity" prefWidth="100"/>
+                        <TableColumn text="Availability" prefWidth="130"/>
+                        <TableColumn text="Actions" prefWidth="180"/>
+                    </columns>
+                </TableView>
+
+            </VBox>
+
+            <!-- Pending Page -->
+            <VBox fx:id="pendingPage"
+                  spacing="20"
+                  visible="false"
+                  managed="false">
+
+                <padding>
+                    <Insets top="20" right="25" bottom="20" left="25"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Pending Booking Requests"
+                           styleClass="section-title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <ComboBox promptText="Sort By" prefWidth="180"/>
+                    <ComboBox promptText="Resource Type" prefWidth="160"/>
+                </HBox>
+
+                <ScrollPane fitToWidth="true"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox spacing="18">
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍🎓" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Pratham Shrestha" styleClass="resource-title"/>
+                                    <Label text="Requested Resource : Study Room A" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 23 July 2026"/>
+                                        <Label text="⏰ 10:00 AM - 12:00 PM"/>
+                                        <Label text="👥 Capacity : 8"/>
+                                    </HBox>
+                                    <HBox spacing="15" alignment="CENTER_LEFT">
+                                        <Label text="Pending" styleClass="status-pending"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Button text="Approve" styleClass="approve-button"/>
+                                        <Button text="Reject" styleClass="reject-button"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👩‍🎓" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Aayush Sharma" styleClass="resource-title"/>
+                                    <Label text="Requested Resource : Computer Laboratory" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 24 July 2026"/>
+                                        <Label text="⏰ 1:00 PM - 3:00 PM"/>
+                                        <Label text="👥 Capacity : 30"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Pending" styleClass="status-pending"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Button text="Approve" styleClass="approve-button"/>
+                                        <Button text="Reject" styleClass="reject-button"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍💼" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Sujan KC" styleClass="resource-title"/>
+                                    <Label text="Requested Resource : Science Laboratory" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 25 July 2026"/>
+                                        <Label text="⏰ 9:00 AM - 11:00 AM"/>
+                                        <Label text="👥 Capacity : 25"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Pending" styleClass="status-pending"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Button text="Approve" styleClass="approve-button"/>
+                                        <Button text="Reject" styleClass="reject-button"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👩‍💻" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Riya Thapa" styleClass="resource-title"/>
+                                    <Label text="Requested Resource : Library Hall B" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 26 July 2026"/>
+                                        <Label text="⏰ 2:00 PM - 5:00 PM"/>
+                                        <Label text="👥 Capacity : 50"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Pending" styleClass="status-pending"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Button text="Approve" styleClass="approve-button"/>
+                                        <Button text="Reject" styleClass="reject-button"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- Approved Page -->
+            <VBox fx:id="approvedPage"
+                  spacing="20"
+                  visible="false"
+                  managed="false">
+
+                <padding>
+                    <Insets top="20" right="25" bottom="20" left="25"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Approved Bookings"
+                           styleClass="section-title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <ComboBox promptText="Sort By" prefWidth="180"/>
+                    <ComboBox promptText="Resource Type" prefWidth="160"/>
+                </HBox>
+
+                <ScrollPane fitToWidth="true"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox spacing="18">
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍🎓" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Hari Bhandari" styleClass="resource-title"/>
+                                    <Label text="Conference Room B" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 22 July 2026"/>
+                                        <Label text="⏰ 9:00 AM - 11:00 AM"/>
+                                        <Label text="👥 Capacity : 20"/>
+                                    </HBox>
+                                    <HBox spacing="15" alignment="CENTER_LEFT">
+                                        <Label text="Approved" styleClass="status-available"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Approved by you" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👩‍🎓" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Sita Rai" styleClass="resource-title"/>
+                                    <Label text="Study Room C" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 22 July 2026"/>
+                                        <Label text="⏰ 1:00 PM - 3:00 PM"/>
+                                        <Label text="👥 Capacity : 6"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Approved" styleClass="status-available"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Approved by you" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍💼" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Ram Pandey" styleClass="resource-title"/>
+                                    <Label text="Science Laboratory" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 21 July 2026"/>
+                                        <Label text="⏰ 10:00 AM - 12:00 PM"/>
+                                        <Label text="👥 Capacity : 25"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Approved" styleClass="status-available"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Approved by you" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- Rejected Page -->
+            <VBox fx:id="rejectedPage"
+                  spacing="20"
+                  visible="false"
+                  managed="false">
+
+                <padding>
+                    <Insets top="20" right="25" bottom="20" left="25"/>
+                </padding>
+
+                <HBox alignment="CENTER_LEFT">
+                    <Label text="Rejected Bookings"
+                           styleClass="section-title"/>
+                    <Pane HBox.hgrow="ALWAYS"/>
+                    <ComboBox promptText="Sort By" prefWidth="180"/>
+                    <ComboBox promptText="Resource Type" prefWidth="160"/>
+                </HBox>
+
+                <ScrollPane fitToWidth="true"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <VBox spacing="18">
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍💻" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Binod Chaudhary" styleClass="resource-title"/>
+                                    <Label text="Computer Laboratory" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 20 July 2026"/>
+                                        <Label text="⏰ 2:00 PM - 4:00 PM"/>
+                                        <Label text="👥 Capacity : 30"/>
+                                    </HBox>
+                                    <HBox spacing="15" alignment="CENTER_LEFT">
+                                        <Label text="Rejected" styleClass="status-rejected"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Reason : Conflict with lab maintenance" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👩‍💼" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Gita Sharma" styleClass="resource-title"/>
+                                    <Label text="Library Hall A" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 19 July 2026"/>
+                                        <Label text="⏰ 9:00 AM - 12:00 PM"/>
+                                        <Label text="👥 Capacity : 50"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Rejected" styleClass="status-rejected"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Reason : Hall already booked" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+
+                            <HBox spacing="20" styleClass="resource-card">
+                                <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+                                <StackPane prefWidth="150" prefHeight="120" styleClass="image-placeholder">
+                                    <Label text="👨‍🔬" style="-fx-font-size:50;"/>
+                                </StackPane>
+                                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                                    <Label text="Kiran Adhikari" styleClass="resource-title"/>
+                                    <Label text="Study Room B" styleClass="resource-location"/>
+                                    <HBox spacing="20">
+                                        <Label text="📅 18 July 2026"/>
+                                        <Label text="⏰ 3:00 PM - 5:00 PM"/>
+                                        <Label text="👥 Capacity : 8"/>
+                                    </HBox>
+                                    <HBox spacing="15">
+                                        <Label text="Rejected" styleClass="status-rejected"/>
+                                        <Pane HBox.hgrow="ALWAYS"/>
+                                        <Label text="Reason : Invalid booking time" styleClass="filter-title"/>
+                                    </HBox>
+                                </VBox>
+                            </HBox>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+            </VBox>
+
+        </StackPane>
 
     </center>
 
