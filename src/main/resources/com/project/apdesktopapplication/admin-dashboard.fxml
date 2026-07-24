@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="20" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.apdesktopapplication.AdminDashboardController" style="-fx-background-color: #F9FAFB; -fx-padding: 24;">
+
+    <!-- Header -->
+    <VBox spacing="4">
+        <Label text="📊 Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+        <Label text="System oversight and resource management." style="-fx-text-fill: #6B7280; -fx-font-size: 14px;"/>
+    </VBox>
+
+    <!-- Stats Grid -->
+    <GridPane hgap="16" vgap="16" style="-fx-padding: 0 0 8 0;">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="100"/>
+        </rowConstraints>
+
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="0">
+            <Label text="👥 Total Users" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="totalUsersLabel" text="1,247" style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="1">
+            <Label text="📅 Total Bookings" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="totalBookingsLabel" text="3,892" style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="2">
+            <Label text="⏳ Pending Approvals" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="pendingApprovalsLabel" text="18" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #EAB308;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="3">
+            <Label text="🔧 Active Resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="activeResourcesLabel" text="124" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16A34A;"/>
+        </VBox>
+    </GridPane>
+
+    <!-- Resource Health Sub-stats -->
+    <HBox spacing="16">
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 14 20 14 20; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
+            <Label text="Resource Health" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+            <HBox spacing="20" style="-fx-padding: 4 0 0 0;">
+                <VBox spacing="2">
+                    <Label text="🟢 Available" style="-fx-text-fill: #6B7280; -fx-font-size: 12px;"/>
+                    <Label fx:id="availableResourcesLabel" text="89" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #16A34A;"/>
+                </VBox>
+                <VBox spacing="2">
+                    <Label text="🟡 Maintenance" style="-fx-text-fill: #6B7280; -fx-font-size: 12px;"/>
+                    <Label fx:id="maintenanceResourcesLabel" text="5" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #EAB308;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <VBox spacing="2" alignment="CENTER_RIGHT">
+                    <Label text="Total Resources" style="-fx-text-fill: #6B7280; -fx-font-size: 12px;"/>
+                    <Label text="124" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <!-- Chart -->
+    <VBox spacing="8" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" VBox.vgrow="ALWAYS">
+        <Label text="📈 Daily Bookings (Last 7 Days)" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <BarChart fx:id="bookingChart" styleClass="custom-bar-chart" prefHeight="300" prefWidth="800" VBox.vgrow="ALWAYS">
+            <xAxis>
+                <CategoryAxis/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis/>
+            </yAxis>
+        </BarChart>
+    </VBox>
+
+</VBox>
