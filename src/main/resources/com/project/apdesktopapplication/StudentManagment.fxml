@@ -6,73 +6,153 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.project.apdesktopapplication.StudentController"
-            prefWidth="1400"
-            prefHeight="850"
-            style="-fx-background-color:#F4F6F9;">
+            prefWidth="1440"
+            prefHeight="900"
+            stylesheets="@student.css"
+            styleClass="root">
 
-    <!-- ================= HEADER ================= -->
+    <!-- ========================= HEADER ========================= -->
 
     <top>
 
         <HBox alignment="CENTER_LEFT"
-              spacing="20"
-              prefHeight="70"
-              style="-fx-background-color:#1565C0;">
+              spacing="15"
+              prefHeight="75"
+              styleClass="header">
 
             <padding>
                 <Insets top="15" right="25" bottom="15" left="25"/>
             </padding>
 
-            <Label text="Campus Resource &amp; Study Space Booking System"
-                   style="-fx-text-fill:white;
-                          -fx-font-size:22;
-                          -fx-font-weight:bold;"/>
+            <Label text="📚"
+                   style="-fx-font-size:28;" />
+
+            <VBox spacing="3">
+
+                <Label text="Campus Resource Booking"
+                       styleClass="header-title"/>
+
+                <Label text="Find and reserve study spaces, labs and equipment"
+                       styleClass="header-subtitle"/>
+
+            </VBox>
 
             <Pane HBox.hgrow="ALWAYS"/>
 
-            <Label text="Welcome, Student"
-                   style="-fx-text-fill:white;
-                          -fx-font-size:18;"/>
+            <TextField fx:id="searchField"
+                       promptText="Search resources..."
+                       prefWidth="300"/>
+
+            <Button text="Search"
+                    styleClass="primary-button"/>
+
+            <Label text="Welcome, Pratham"
+                   styleClass="welcome-label"/>
 
             <Button text="Logout"
                     fx:id="logoutBtn"
-                    style="-fx-background-color:#E53935;
-                           -fx-text-fill:white;
-                           -fx-font-weight:bold;"/>
+                    styleClass="logout-button"/>
 
         </HBox>
 
     </top>
 
-    <!-- ================= SIDEBAR ================= -->
+    <!-- ========================= SIDEBAR ========================= -->
 
     <left>
 
-        <VBox spacing="15"
-              prefWidth="220"
-              style="-fx-background-color:white;">
+        <VBox prefWidth="280"
+              spacing="20"
+              styleClass="sidebar">
 
             <padding>
-                <Insets top="20" left="15"/>
+                <Insets top="25"
+                        right="20"
+                        bottom="25"
+                        left="20"/>
             </padding>
 
-            <Button text="🏠 Dashboard" maxWidth="Infinity"/>
-            <Button text="📚 Search Resources" maxWidth="Infinity"/>
-            <Button text="📖 My Bookings" maxWidth="Infinity"/>
-            <Button text="📅 Resource Availability" maxWidth="Infinity"/>
+            <Label text="Filters"
+                   styleClass="section-title"/>
+
+            <Separator/>
+
+            <!-- Resource Type -->
+
+            <VBox spacing="10">
+
+                <Label text="Resource Type"
+                       styleClass="filter-title"/>
+
+                <CheckBox text="Study Room"/>
+
+                <CheckBox text="Laboratory"/>
+
+                <CheckBox text="Conference Room"/>
+
+                <CheckBox text="Computer Lab"/>
+
+                <CheckBox text="Equipment"/>
+
+            </VBox>
+
+            <!-- Location -->
+
+            <VBox spacing="8">
+
+                <Label text="Location"
+                       styleClass="filter-title"/>
+
+                <ComboBox promptText="Select Building"/>
+
+            </VBox>
+
+            <!-- Capacity -->
+
+            <VBox spacing="8">
+
+                <Label text="Capacity"
+                       styleClass="filter-title"/>
+
+                <Slider min="1"
+                        max="100"
+                        value="20"/>
+
+            </VBox>
+
+            <!-- Availability -->
+
+            <VBox spacing="8">
+
+                <Label text="Availability"
+                       styleClass="filter-title"/>
+
+                <CheckBox text="Available Now"/>
+
+            </VBox>
+
+            <Button text="Apply Filters"
+                    maxWidth="Infinity"
+                    styleClass="primary-button"/>
+
+            <Button text="Clear Filters"
+                    maxWidth="Infinity"/>
 
         </VBox>
 
     </left>
 
-    <!-- ================= MAIN CONTENT ================= -->
+    <!-- ========================= CENTER ========================= -->
 
     <center>
 
         <VBox spacing="20">
 
             <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
+                <Insets top="20"
+                        right="25"
+                        bottom="20"
+                        left="25"/>
             </padding>
 
             <!-- Dashboard Cards -->
@@ -80,145 +160,248 @@
             <HBox spacing="20">
 
                 <VBox prefWidth="220"
-                      style="-fx-background-color:white;
-                             -fx-background-radius:12;
-                             -fx-padding:20;">
+                      styleClass="dashboard-card">
+
+                    <padding>
+                        <Insets top="20"
+                                right="20"
+                                bottom="20"
+                                left="20"/>
+                    </padding>
 
                     <Label text="Available Resources"
-                           style="-fx-font-size:18;
-                                  -fx-font-weight:bold;"/>
+                           styleClass="card-title"/>
 
-                    <Label text="28"
-                           style="-fx-font-size:36;
-                                  -fx-text-fill:#1565C0;"/>
+                    <Label text="24"
+                           styleClass="card-number"/>
 
                 </VBox>
 
                 <VBox prefWidth="220"
-                      style="-fx-background-color:white;
-                             -fx-background-radius:12;
-                             -fx-padding:20;">
+                      styleClass="dashboard-card">
+
+                    <padding>
+                        <Insets top="20"
+                                right="20"
+                                bottom="20"
+                                left="20"/>
+                    </padding>
 
                     <Label text="My Bookings"
-                           style="-fx-font-size:18;
-                                  -fx-font-weight:bold;"/>
+                           styleClass="card-title"/>
 
                     <Label text="3"
-                           style="-fx-font-size:36;
-                                  -fx-text-fill:#2E7D32;"/>
+                           styleClass="card-number"/>
 
                 </VBox>
 
                 <VBox prefWidth="220"
-                      style="-fx-background-color:white;
-                             -fx-background-radius:12;
-                             -fx-padding:20;">
+                      styleClass="dashboard-card">
+
+                    <padding>
+                        <Insets top="20"
+                                right="20"
+                                bottom="20"
+                                left="20"/>
+                    </padding>
 
                     <Label text="Pending Requests"
-                           style="-fx-font-size:18;
-                                  -fx-font-weight:bold;"/>
+                           styleClass="card-title"/>
 
                     <Label text="1"
-                           style="-fx-font-size:36;
-                                  -fx-text-fill:#EF6C00;"/>
+                           styleClass="card-number"/>
 
                 </VBox>
 
             </HBox>
 
-            <!-- Search & Filter -->
+            <!-- Section Header -->
 
-            <HBox spacing="10">
+            <HBox alignment="CENTER_LEFT">
 
-                <TextField promptText="Search Resource..."
-                           prefWidth="350"/>
+                <Label text="Available Resources"
+                       styleClass="section-title"/>
 
-                <ComboBox promptText="Type"/>
+                <Pane HBox.hgrow="ALWAYS"/>
 
-                <ComboBox promptText="Location"/>
-
-                <ComboBox promptText="Availability"/>
-
-                <Button text="Search"/>
+                <ComboBox promptText="Sort By"
+                          prefWidth="180"/>
 
             </HBox>
 
-            <!-- Resource Table -->
+            <!-- Resource List -->
 
-            <Label text="Available Resources"
-                   style="-fx-font-size:20;
-                          -fx-font-weight:bold;"/>
+            <ScrollPane fitToWidth="true"
+                        VBox.vgrow="ALWAYS"
+                        style="-fx-background-color:transparent;">
 
-            <TableView fx:id="resourceTable"
-                       prefHeight="280">
+                <content>
 
-                <columns>
+                    <VBox fx:id="resourceContainer"
+                          spacing="18">
 
-                    <TableColumn text="ID" prefWidth="80"/>
+                        <!-- Resource cards will go here -->
+                        <!-- ========================= RESOURCE CARD 1 ========================= -->
 
-                    <TableColumn text="Resource"
-                                 prefWidth="180"/>
+                        <HBox spacing="20"
+                              styleClass="resource-card">
 
-                    <TableColumn text="Type"
-                                 prefWidth="160"/>
+                            <padding>
+                                <Insets top="18" right="18" bottom="18" left="18"/>
+                            </padding>
 
-                    <TableColumn text="Location"
-                                 prefWidth="180"/>
+                            <!-- Image -->
 
-                    <TableColumn text="Capacity"
-                                 prefWidth="120"/>
+                            <StackPane prefWidth="180"
+                                       prefHeight="130"
+                                       styleClass="image-placeholder">
 
-                    <TableColumn text="Availability"
-                                 prefWidth="130"/>
+                                <Label text="🖼"
+                                       style="-fx-font-size:40;"/>
 
-                    <TableColumn text="Action"
-                                 prefWidth="120"/>
+                            </StackPane>
 
-                </columns>
+                            <!-- Details -->
 
-            </TableView>
+                            <VBox spacing="10"
+                                  HBox.hgrow="ALWAYS">
 
-            <!-- Booking Table -->
+                                <Label text="Science Laboratory"
+                                       styleClass="resource-title"/>
 
-            <Label text="My Bookings"
-                   style="-fx-font-size:20;
-                          -fx-font-weight:bold;"/>
+                                <Label text="📍 Engineering Block - Floor 4"
+                                       styleClass="resource-location"/>
 
-            <TableView fx:id="bookingTable"
-                       prefHeight="250">
+                                <HBox spacing="20">
 
-                <columns>
+                                    <Label text="👥 Capacity : 30"/>
 
-                    <TableColumn text="Booking ID"
-                                 prefWidth="120"/>
+                                    <Label text="🆔 Resource ID : LAB-001"/>
 
-                    <TableColumn text="Resource"
-                                 prefWidth="180"/>
+                                </HBox>
 
-                    <TableColumn text="Date"
-                                 prefWidth="150"/>
+                                <HBox spacing="15">
 
-                    <TableColumn text="Time"
-                                 prefWidth="120"/>
+                                    <Label text="Available"
+                                           styleClass="status-available"/>
 
-                    <TableColumn text="Status"
-                                 prefWidth="120"/>
+                                    <Pane HBox.hgrow="ALWAYS"/>
 
-                    <TableColumn text="Action"
-                                 prefWidth="140"/>
+                                    <Button text="Book Now"
+                                            styleClass="book-button"/>
 
-                </columns>
+                                </HBox>
 
-            </TableView>
+                            </VBox>
 
-            <HBox alignment="CENTER_RIGHT">
+                        </HBox>
 
-                <Button text="Cancel Selected Booking"
-                        style="-fx-background-color:#E53935;
-                               -fx-text-fill:white;
-                               -fx-font-weight:bold;"/>
+                        <!-- ========================= RESOURCE CARD 2 ========================= -->
 
-            </HBox>
+                        <HBox spacing="20"
+                              styleClass="resource-card">
+
+                            <padding>
+                                <Insets top="18" right="18" bottom="18" left="18"/>
+                            </padding>
+
+                            <StackPane prefWidth="180"
+                                       prefHeight="130"
+                                       styleClass="image-placeholder">
+
+                                <Label text="📖"
+                                       style="-fx-font-size:40;"/>
+
+                            </StackPane>
+
+                            <VBox spacing="10"
+                                  HBox.hgrow="ALWAYS">
+
+                                <Label text="Study Room A"
+                                       styleClass="resource-title"/>
+
+                                <Label text="📍 Library Building - Floor 2"
+                                       styleClass="resource-location"/>
+
+                                <HBox spacing="20">
+
+                                    <Label text="👥 Capacity : 8"/>
+
+                                    <Label text="🆔 Resource ID : STD-204"/>
+
+                                </HBox>
+
+                                <HBox spacing="15">
+
+                                    <Label text="Available"
+                                           styleClass="status-available"/>
+
+                                    <Pane HBox.hgrow="ALWAYS"/>
+
+                                    <Button text="Book Now"
+                                            styleClass="book-button"/>
+
+                                </HBox>
+
+                            </VBox>
+
+                        </HBox>
+
+                        <!-- ========================= RESOURCE CARD 3 ========================= -->
+
+                        <HBox spacing="20"
+                              styleClass="resource-card">
+
+                            <padding>
+                                <Insets top="18" right="18" bottom="18" left="18"/>
+                            </padding>
+
+                            <StackPane prefWidth="180"
+                                       prefHeight="130"
+                                       styleClass="image-placeholder">
+
+                                <Label text="💻"
+                                       style="-fx-font-size:40;"/>
+
+                            </StackPane>
+
+                            <VBox spacing="10"
+                                  HBox.hgrow="ALWAYS">
+
+                                <Label text="Computer Laboratory"
+                                       styleClass="resource-title"/>
+
+                                <Label text="📍 IT Block - Floor 3"
+                                       styleClass="resource-location"/>
+
+                                <HBox spacing="20">
+
+                                    <Label text="👥 Capacity : 40"/>
+
+                                    <Label text="🆔 Resource ID : COM-105"/>
+
+                                </HBox>
+
+                                <HBox spacing="15">
+
+                                    <Label text="Occupied"
+                                           styleClass="status-occupied"/>
+
+                                    <Pane HBox.hgrow="ALWAYS"/>
+
+                                    <Button text="Unavailable"
+                                            disable="true"/>
+
+                                </HBox>
+
+                            </VBox>
+
+                        </HBox>
+                    </VBox>
+
+                </content>
+
+            </ScrollPane>
 
         </VBox>
 
