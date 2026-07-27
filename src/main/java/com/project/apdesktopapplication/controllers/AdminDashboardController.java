@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class AdminDashboardController {
+    @FXML public Label totalResources;
     @FXML private Label totalUsersLabel;
     @FXML private Label totalBookingsLabel;
     @FXML private Label pendingApprovalsLabel;
@@ -45,6 +46,7 @@ public class AdminDashboardController {
         availableResourcesLabel.setText(String.valueOf(resourceService.getAvailableResourcesCount()));
         maintenanceResourcesLabel.setText(String.valueOf(resourceService.getMaintenanceResourcesCount()));
         activeResourcesLabel.setText(String.valueOf(resourceService.getAvailableResourcesCount()));
+        totalResources.setText(String.valueOf(resourceService.getAvailableResourcesCount() + resourceService.getMaintenanceResourcesCount()));
     }
 
     private void updateChart() {

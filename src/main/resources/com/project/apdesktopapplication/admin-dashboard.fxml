@@ -67,7 +67,7 @@
                 <Region HBox.hgrow="ALWAYS"/>
                 <VBox spacing="2" alignment="CENTER_RIGHT">
                     <Label text="Total Resources" style="-fx-text-fill: #6B7280; -fx-font-size: 12px;"/>
-                    <Label text="124" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <Label fx:id="totalResources" text="124" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
                 </VBox>
             </HBox>
         </VBox>

@@ -61,6 +61,10 @@ public class ResourceController {
         colLocation.setCellValueFactory(new PropertyValueFactory<>("location"));
         colCapacity.setCellValueFactory(new PropertyValueFactory<>("capacity"));
 
+        // This line was missing - without it the column has no value to show,
+        // so the cell factory below always renders an empty/null cell.
+        colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+
         // Status column with color coding
         colStatus.setCellFactory(column -> new TableCell<Resource, String>() {
             @Override
@@ -121,17 +125,14 @@ public class ResourceController {
     }
 
     private void setupFilters() {
-        // Populate type filter
         typeFilter.getItems().add("All Types");
         typeFilter.getItems().addAll(resourceService.getAllTypes());
         typeFilter.setValue("All Types");
 
-        // Populate location filter
         locationFilter.getItems().add("All Locations");
         locationFilter.getItems().addAll(resourceService.getAllLocations());
         locationFilter.setValue("All Locations");
 
-        // Populate capacity filter
         capacityFilter.getItems().addAll("Any Size", "1-5", "6-10", "11-20", "21-50", "50+");
         capacityFilter.setValue("Any Size");
     }
@@ -146,19 +147,16 @@ public class ResourceController {
     private void applyFilters() {
         filteredResources = FXCollections.observableArrayList(allResources);
 
-        // Type filter
         String type = typeFilter.getValue();
         if (type != null && !type.equals("All Types")) {
             filteredResources.removeIf(r -> !r.getType().equals(type));
         }
 
-        // Location filter
         String location = locationFilter.getValue();
         if (location != null && !location.equals("All Locations")) {
             filteredResources.removeIf(r -> !r.getLocation().equals(location));
         }
 
-        // Capacity filter
         String capacity = capacityFilter.getValue();
         if (capacity != null && !capacity.equals("Any Size")) {
             filteredResources.removeIf(r -> {
@@ -174,7 +172,6 @@ public class ResourceController {
             });
         }
 
-        // Availability filter
         if (availableNowToggle.isSelected()) {
             filteredResources.removeIf(r -> !r.getStatus().equals("AVAILABLE"));
         }
@@ -218,7 +215,6 @@ public class ResourceController {
             stage.setResizable(false);
             stage.showAndWait();
 
-            // Refresh after booking
             loadData();
         } catch (Exception e) {
             e.printStackTrace();
@@ -228,6 +224,5 @@ public class ResourceController {
 
     private void showError(String message) {
         System.err.println("Error: " + message);
-        // You can add a proper error dialog here if needed
     }
 }
