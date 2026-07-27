@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="16" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.project.apdesktopapplication.AdminPendingApprovalsController" style="-fx-background-color: #F9FAFB; -fx-padding: 24;">
+<VBox spacing="16" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.project.apdesktopapplication.controllers.AdminPendingApprovalsController" style="-fx-background-color: #F9FAFB; -fx-padding: 24;">
 
     <!-- Header -->
     <HBox alignment="CENTER_LEFT" spacing="12">
@@ -19,7 +19,7 @@
         <Region HBox.hgrow="ALWAYS"/>
         <VBox spacing="2" alignment="CENTER_RIGHT" style="-fx-background-color: #FEF3C7; -fx-padding: 8 16 8 16; -fx-background-radius: 6; -fx-border-color: #F59E0B; -fx-border-radius: 6;">
             <Label text="Pending Requests" style="-fx-text-fill: #6B7280; -fx-font-size: 11px;"/>
-            <Label fx:id="pendingCountLabel" text="5" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #EAB308;"/>
+            <Label fx:id="pendingCountLabel" text="0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #EAB308;"/>
         </VBox>
     </HBox>
 
@@ -35,7 +35,7 @@
 
     <!-- Footer -->
     <HBox spacing="10" alignment="CENTER_RIGHT">
-        <Button text="Refresh" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand;"/>
+        <Button text="Refresh" onAction="#refresh" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand;"/>
     </HBox>
 
 </VBox>

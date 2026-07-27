@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.project.apdesktopapplication.controllers.LoginController">
+
+    <VBox alignment="CENTER" spacing="12"
+          maxWidth="350" prefWidth="350">
+        <padding>
+            <Insets top="30" bottom="30" left="30" right="30"/>
+        </padding>
+
+        <Label text="📋 Resource Manager" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+        <Label text="Login to continue" style="-fx-text-fill: #6B7280; -fx-font-size: 14px;"/>
+
+        <TextField fx:id="emailOrUsernameField" promptText="Username" maxWidth="Infinity"/>
+
+        <PasswordField fx:id="passwordField" promptText="Password" maxWidth="Infinity"/>
+
+        <Button fx:id="loginButton" text="Login" maxWidth="Infinity" onAction="#handleLogin"
+                style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 10; -fx-font-weight: bold;"/>
+
+        <Label fx:id="messageLabel" style="-fx-text-fill: red; -fx-font-size: 12px;"/>
+
+        <Hyperlink fx:id="toSignupLink" text="Don't have an account? Sign up" onAction="#goToSignup"/>
+
+    </VBox>
+</StackPane>

@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" spacing="14" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.project.apdesktopapplication.ResourceController" style="-fx-background-color: white; -fx-padding: 20;">
+<VBox fx:id="root" spacing="14" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.project.apdesktopapplication.controllers.ResourceController" style="-fx-background-color: white; -fx-padding: 20;">
 
     <!-- Header -->
     <HBox alignment="CENTER_LEFT" spacing="10">
         <Label text="📋 Resource Management" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: black;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Label text="Total: 5 resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+        <Label fx:id="totalResourcesLabel" text="Total: 0 resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
     </HBox>
 
     <!-- Filter bar -->
@@ -41,15 +41,17 @@
                           style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 8 16 8 16; -fx-cursor: hand;"/>
         </VBox>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button fx:id="filterIconButton" text="Apply Filters" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand; -fx-font-weight: bold;"/>
+        <Button fx:id="filterIconButton" text="Apply Filters" onAction="#applyFilters"
+                style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 20 8 20; -fx-cursor: hand; -fx-font-weight: bold;"/>
     </HBox>
 
     <!-- Table -->
     <TableView fx:id="resourceTable" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-border-color: #E5E7EB; -fx-border-radius: 4;">
         <columns>
             <TableColumn fx:id="colId" text="Resource ID" prefWidth="120" style="-fx-font-weight: bold;"/>
-            <TableColumn fx:id="colName" text="Name &amp; Location" prefWidth="250" style="-fx-font-weight: bold;"/>
+            <TableColumn fx:id="colName" text="Name" prefWidth="200" style="-fx-font-weight: bold;"/>
             <TableColumn fx:id="colType" text="Type" prefWidth="120" style="-fx-font-weight: bold;"/>
+            <TableColumn fx:id="colLocation" text="Location" prefWidth="180" style="-fx-font-weight: bold;"/>
             <TableColumn fx:id="colCapacity" text="Capacity" prefWidth="90" style="-fx-font-weight: bold;"/>
             <TableColumn fx:id="colStatus" text="Status" prefWidth="130" style="-fx-font-weight: bold;"/>
             <TableColumn fx:id="colActions" text="Actions" prefWidth="120" style="-fx-font-weight: bold;"/>
@@ -58,15 +60,8 @@
 
     <!-- Pagination footer -->
     <HBox alignment="CENTER_LEFT" style="-fx-padding: 10 4 4 4;">
-        <Label fx:id="showingLabel" text="Showing 1-5 of 5 resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+        <Label fx:id="showingLabel" text="Showing resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <HBox spacing="6">
-            <Button text="◀" style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 6 12 6 12; -fx-cursor: hand;"/>
-            <Button text="1" style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 6 12 6 12; -fx-font-weight: bold;"/>
-            <Button text="2" style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 6 12 6 12; -fx-cursor: hand;"/>
-            <Button text="3" style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 6 12 6 12; -fx-cursor: hand;"/>
-            <Button text="▶" style="-fx-background-color: white; -fx-border-color: #D1D5DB; -fx-background-radius: 6; -fx-border-radius: 6; -fx-padding: 6 12 6 12; -fx-cursor: hand;"/>
-        </HBox>
     </HBox>
 
 </VBox>

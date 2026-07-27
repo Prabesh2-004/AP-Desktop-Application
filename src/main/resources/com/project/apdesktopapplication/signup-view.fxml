@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.project.apdesktopapplication.controllers.RegisterController">
+
+    <VBox alignment="CENTER" spacing="12"
+          maxWidth="360" prefWidth="360">
+        <padding>
+            <Insets top="30" bottom="30" left="30" right="30"/>
+        </padding>
+
+        <Label text="📋 Sign Up" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+        <Label text="Create your account" style="-fx-text-fill: #6B7280; -fx-font-size: 14px;"/>
+
+        <TextField fx:id="fullNameField" promptText="Full Name" maxWidth="Infinity"/>
+
+        <TextField fx:id="universityIdField" promptText="Username" maxWidth="Infinity"/>
+
+        <PasswordField fx:id="passwordField" promptText="Password" maxWidth="Infinity"/>
+
+        <Label fx:id="roleLabel" text="Role: STUDENT" style="-fx-text-fill: #6b7280; -fx-font-size: 12px;"/>
+
+        <Button fx:id="signupButton" text="Sign Up" maxWidth="Infinity" onAction="#handleSignup"
+                style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 10; -fx-font-weight: bold;"/>
+
+        <Label fx:id="messageLabel" style="-fx-font-size: 12px;"/>
+
+        <Hyperlink fx:id="toLoginLink" text="Already have an account? Login" onAction="#goToLogin"/>
+
+    </VBox>
+</StackPane>
