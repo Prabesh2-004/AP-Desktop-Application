@@ -7,4 +7,5 @@ module com.project.apdesktopapplication {
     opens com.project.apdesktopapplication.models to javafx.base;
 
     exports com.project.apdesktopapplication;
+    opens com.project.apdesktopapplication.utils to javafx.fxml;
 }

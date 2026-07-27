@@ -2,10 +2,10 @@ package com.project.apdesktopapplication.services;
 
 import com.project.apdesktopapplication.models.User;
 import com.project.apdesktopapplication.utils.DataManager;
+import com.project.apdesktopapplication.utils.PasswordHasher;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class UserService {
     private List<User> users;
@@ -26,7 +26,6 @@ public class UserService {
         users = new ArrayList<>();
         List<String> lines = DataManager.readUsers();
         if (lines.isEmpty()) {
-            // Create default admin if no users exist
             createDefaultAdmin();
         } else {
             for (String line : lines) {
@@ -36,7 +35,8 @@ public class UserService {
     }
 
     private void createDefaultAdmin() {
-        User admin = new User("ADMIN001", "admin", "System Admin", "admin123", "ADMIN", "ACTIVE");
+        // Default admin password is hashed too, so authenticate() below works for it as well.
+        User admin = new User("ADMIN001", "admin", "System Admin", PasswordHasher.hash("admin123"), "ADMIN", "ACTIVE");
         users.add(admin);
         saveUsers();
     }
@@ -71,9 +71,12 @@ public class UserService {
         return null;
     }
 
-    public User authenticate(String username, String password) {
+    public User authenticate(String username, String rawPassword) {
         User user = getUserByUsername(username);
-        if (user != null && user.getPassword().equals(password) && user.getStatus().equals("ACTIVE")) {
+        // Hash the attempt and compare against the stored hash - passwords are
+        // never stored or compared as plain text.
+        if (user != null && PasswordHasher.matches(rawPassword, user.getPassword())
+                && user.getStatus().equals("ACTIVE")) {
             return user;
         }
         return null;

@@ -2,6 +2,7 @@ package com.project.apdesktopapplication.controllers;
 
 import com.project.apdesktopapplication.models.User;
 import com.project.apdesktopapplication.services.UserService;
+import com.project.apdesktopapplication.utils.PasswordHasher;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -33,14 +34,14 @@ public class RegisterController {
     private void handleSignup() {
         String fullName = fullNameField.getText().trim();
         String username = universityIdField.getText().trim();
-        String password = passwordField.getText().trim();
+        String rawPassword = passwordField.getText().trim();
 
-        if (fullName.isEmpty() || username.isEmpty() || password.isEmpty()) {
+        if (fullName.isEmpty() || username.isEmpty() || rawPassword.isEmpty()) {
             messageLabel.setText("Please fill all fields");
             return;
         }
 
-        if (password.length() < 4) {
+        if (rawPassword.length() < 4) {
             messageLabel.setText("Password must be at least 4 characters");
             return;
         }
@@ -50,11 +51,14 @@ public class RegisterController {
             return;
         }
 
+        // Password is hashed here - the raw password never gets stored or passed onward.
+        String hashedPassword = PasswordHasher.hash(rawPassword);
+
         User newUser = new User(
                 "USR" + System.currentTimeMillis(),
                 username,
                 fullName,
-                password,
+                hashedPassword,
                 "STUDENT",
                 "ACTIVE"
         );
