@@ -15,7 +15,7 @@
         <VBox spacing="8" prefWidth="240" style="-fx-background-color: black; -fx-padding: 20 12 20 12;">
             <!-- Logo/Header -->
             <VBox spacing="2" style="-fx-padding: 0 0 20 0;">
-                <Label text="🛠️ Staff" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Staff" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
                 <Label text="Resource Management" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;"/>
             </VBox>
 
