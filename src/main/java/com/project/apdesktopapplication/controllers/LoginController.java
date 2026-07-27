@@ -51,6 +51,8 @@ public class LoginController {
                     fxmlPath = "/com/project/apdesktopapplication/admin-main-view.fxml";
                     break;
                 case "STAFF":
+                    fxmlPath = "/com/project/apdesktopapplication/staff-main-view.fxml";
+                    break;
                 case "STUDENT":
                 default:
                     fxmlPath = "/com/project/apdesktopapplication/main-view.fxml";
@@ -65,13 +67,14 @@ public class LoginController {
             }
             Parent root = loader.load();
 
-            // Pass user info to controller if needed
-            if (user.getRole().equals("ADMIN")) {
-                AdminNavigationController controller = loader.getController();
-                controller.setUserInfo(user);
-            } else {
-                NavigationController controller = loader.getController();
-                controller.setUserInfo(user);
+            // Pass user info to controller based on type
+            Object controller = loader.getController();
+            if (controller instanceof AdminNavigationController) {
+                ((AdminNavigationController) controller).setUserInfo(user);
+            } else if (controller instanceof StaffNavigationController) {
+                ((StaffNavigationController) controller).setUserInfo(user);
+            } else if (controller instanceof NavigationController) {
+                ((NavigationController) controller).setUserInfo(user);
             }
 
             Scene scene = new Scene(root, 1200, 750);

@@ -5,3 +5,4 @@ RES004|Study Room 1|Study Room|Library - Floor 1|4|AVAILABLE|ADMIN001
 RES005|Study Room 2|Study Room|Library - Floor 2|6|AVAILABLE|ADMIN001
 RES006|Projector Setup|Equipment|Building A - Floor 2|1|BOOKED|ADMIN001
 RES007|Hackathon|Study Room|E-106|100|AVAILABLE|ADMIN001
+RES008|Git/GitHub Workshop|Study Room|203|150|BOOKED|USR1785169050229

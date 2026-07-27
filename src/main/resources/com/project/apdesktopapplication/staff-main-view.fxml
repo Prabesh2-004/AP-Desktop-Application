@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.project.apdesktopapplication.controllers.StaffNavigationController" prefWidth="1300" prefHeight="800">
+
+    <!-- Sidebar -->
+    <left>
+        <VBox spacing="8" prefWidth="240" style="-fx-background-color: black; -fx-padding: 20 12 20 12;">
+            <!-- Logo/Header -->
+            <VBox spacing="2" style="-fx-padding: 0 0 20 0;">
+                <Label text="🛠️ Staff" style="-fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold;"/>
+                <Label text="Resource Management" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;"/>
+            </VBox>
+
+            <Region prefHeight="10"/>
+
+            <Button fx:id="dashboardLink" text="📊 Dashboard" maxWidth="Infinity" onAction="#showDashboard"
+                    style="-fx-background-color: #1F2937; -fx-text-fill: white; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 12 16 12 16; -fx-font-weight: bold;"/>
+            <Button fx:id="myResourcesLink" text="📋 My Resources" maxWidth="Infinity" onAction="#showMyResources"
+                    style="-fx-background-color: transparent; -fx-text-fill: #9CA3AF; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 12 16 12 16; -fx-font-weight: bold;"/>
+            <Button fx:id="pendingApprovalsLink" text="⏳ Pending Approvals" maxWidth="Infinity" onAction="#showPendingApprovals"
+                    style="-fx-background-color: transparent; -fx-text-fill: #9CA3AF; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 12 16 12 16; -fx-font-weight: bold;"/>
+            <Button fx:id="allResourcesLink" text="📚 All Resources" maxWidth="Infinity" onAction="#showAllResources"
+                    style="-fx-background-color: transparent; -fx-text-fill: #9CA3AF; -fx-alignment: CENTER_LEFT; -fx-background-radius: 6; -fx-padding: 12 16 12 16; -fx-font-weight: bold;"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Footer sidebar -->
+            <VBox spacing="4" style="-fx-padding: 16 0 0 0; -fx-border-color: #1F2937; -fx-border-width: 1 0 0 0;">
+                <Label fx:id="staffUserLabel" text="👤 Staff" style="-fx-text-fill: #9CA3AF; -fx-font-size: 12px;"/>
+                <Label fx:id="staffUserInfoLabel" text="" style="-fx-text-fill: #6B7280; -fx-font-size: 10px;"/>
+                <Button text="🚪 Logout" onAction="#logout" maxWidth="Infinity"
+                        style="-fx-background-color: #DC2626; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8; -fx-font-weight: bold;"/>
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Page content -->
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #F9FAFB;"/>
+    </center>
+
+</BorderPane>

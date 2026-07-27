@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.Button?>
+<VBox spacing="20" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.project.apdesktopapplication.controllers.StaffDashboardController" style="-fx-background-color: #F9FAFB; -fx-padding: 24;">
+
+    <!-- Header -->
+    <VBox spacing="4">
+        <Label text="📊 Staff Dashboard" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: black;"/>
+        <Label text="Manage your resources and bookings." style="-fx-text-fill: #6B7280; -fx-font-size: 14px;"/>
+    </VBox>
+
+    <!-- Stats Grid -->
+    <GridPane hgap="16" vgap="16" style="-fx-padding: 0 0 8 0;">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+            <ColumnConstraints percentWidth="25"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="100"/>
+        </rowConstraints>
+
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="0">
+            <Label text="📦 My Resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="myResourcesLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #3B82F6;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="1">
+            <Label text="📅 Total Bookings" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="totalBookingsLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="2">
+            <Label text="⏳ Pending Approvals" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="pendingApprovalsLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #EAB308;"/>
+        </VBox>
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 16; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" GridPane.columnIndex="3">
+            <Label text="🔧 Available Resources" style="-fx-text-fill: #6B7280; -fx-font-size: 13px;"/>
+            <Label fx:id="availableResourcesLabel" text="0" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #16A34A;"/>
+        </VBox>
+    </GridPane>
+
+    <!-- Quick Actions -->
+    <HBox spacing="16">
+        <VBox spacing="4" style="-fx-background-color: white; -fx-padding: 14 20 14 20; -fx-background-radius: 8; -fx-border-color: #E5E7EB; -fx-border-radius: 8;" HBox.hgrow="ALWAYS">
+            <Label text="Quick Actions" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+            <HBox spacing="12" style="-fx-padding: 8 0 0 0;">
+                <Button fx:id="addResourceBtn" text="➕ Add New Resource" onAction="#handleAddResource"
+                        style="-fx-background-color: black; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16 8 16; -fx-cursor: hand; -fx-font-weight: bold;"/>
+                <Button fx:id="viewPendingBtn" text="⏳ View Pending" onAction="#handleViewPending"
+                        style="-fx-background-color: #EAB308; -fx-text-fill: white; -fx-background-radius: 6; -fx-padding: 8 16 8 16; -fx-cursor: hand; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+</VBox>
