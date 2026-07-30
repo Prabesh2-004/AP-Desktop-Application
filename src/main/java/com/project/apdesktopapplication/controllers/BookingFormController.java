@@ -1,5 +1,7 @@
 package com.project.apdesktopapplication.controllers;
 
+import com.project.apdesktopapplication.exceptions.InvalidBookingDurationException;
+import com.project.apdesktopapplication.exceptions.ResourceUnavailableException;
 import com.project.apdesktopapplication.models.Booking;
 import com.project.apdesktopapplication.models.Resource;
 import com.project.apdesktopapplication.models.User;
@@ -119,65 +121,15 @@ public class BookingFormController {
             return;
         }
 
+        // Delegate all validation and creation to the service. The service throws
+        // a specific custom exception for each rule it enforces; we catch them
+        // individually so the user sees a meaningful message for each case.
         try {
-            LocalTime startTime = LocalTime.parse(start);
-            LocalTime endTime = LocalTime.parse(end);
-            if (!endTime.isAfter(startTime)) {
-                messageLabel.setText("End time must be after start time");
-                messageLabel.setStyle("-fx-text-fill: red;");
-                return;
-            }
-
-            // Check if resource is still available
             Resource currentResource = resourceService.getResourceById(resource.getResourceId());
-            if (currentResource == null || !currentResource.getStatus().equals("AVAILABLE")) {
-                messageLabel.setText("Resource is no longer available");
-                messageLabel.setStyle("-fx-text-fill: red;");
-                return;
-            }
+            Booking booking = bookingService.createBooking(
+                    currentUser, currentResource, date.toString(), start, end);
 
-            // Check for overlapping bookings
-            boolean hasConflict = bookingService.getAllBookings().stream()
-                    .filter(b -> b.getResourceId().equals(resource.getResourceId()))
-                    .filter(b -> b.getStatus().equals("APPROVED") || b.getStatus().equals("PENDING"))
-                    .anyMatch(b -> {
-                        try {
-                            LocalDate bDate = LocalDate.parse(b.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                            if (!bDate.equals(date)) return false;
-                            LocalTime bStart = LocalTime.parse(b.getStartTime());
-                            LocalTime bEnd = LocalTime.parse(b.getEndTime());
-                            return !(endTime.compareTo(bStart) <= 0 || startTime.compareTo(bEnd) >= 0);
-                        } catch (Exception e) {
-                            return false;
-                        }
-                    });
-
-            if (hasConflict) {
-                messageLabel.setText("This time slot is already booked");
-                messageLabel.setStyle("-fx-text-fill: red;");
-                return;
-            }
-
-            // Create booking
-            String role = currentUser != null ? currentUser.getRole() : "STUDENT";
-            String status = "STAFF".equals(role) || "ADMIN".equals(role) ? "APPROVED" : "PENDING";
-
-            Booking booking = new Booking(
-                    "BKG" + System.currentTimeMillis(),
-                    currentUser.getUserId(),
-                    resource.getResourceId(),
-                    date.toString(),
-                    start,
-                    end,
-                    status
-            );
-
-            bookingService.addBooking(booking);
-
-            // Update resource status if approved
-            if (status.equals("APPROVED")) {
-                currentResource.setStatus("BOOKED");
-                resourceService.updateResource(currentResource);
+            if ("APPROVED".equals(booking.getStatus())) {
                 bookingStatusLabel.setText("✅ APPROVED");
                 bookingStatusLabel.setStyle("-fx-text-fill: #16A34A; -fx-font-weight: bold;");
             } else {
@@ -185,12 +137,11 @@ public class BookingFormController {
                 bookingStatusLabel.setStyle("-fx-text-fill: #EAB308; -fx-font-weight: bold;");
             }
 
-            messageLabel.setText("✓ Booking " + status.toLowerCase() + " successfully!");
+            messageLabel.setText("✓ Booking " + booking.getStatus().toLowerCase() + " successfully!");
             messageLabel.setStyle("-fx-text-fill: #16A34A;");
-
             confirmButton.setDisable(true);
 
-            // Close after delay
+            // Close after a short delay so the user can read the confirmation.
             new Thread(() -> {
                 try {
                     Thread.sleep(1500);
@@ -206,8 +157,12 @@ public class BookingFormController {
                 }
             }).start();
 
+        } catch (ResourceUnavailableException | InvalidBookingDurationException e) {
+            // Meaningful, rule-specific feedback straight from the custom exception.
+            messageLabel.setText(e.getMessage());
+            messageLabel.setStyle("-fx-text-fill: red;");
         } catch (Exception e) {
-            messageLabel.setText("Error: " + e.getMessage());
+            messageLabel.setText("Unexpected error: " + e.getMessage());
             messageLabel.setStyle("-fx-text-fill: red;");
         }
     }

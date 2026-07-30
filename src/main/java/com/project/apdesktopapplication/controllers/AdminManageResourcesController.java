@@ -188,7 +188,7 @@ public class AdminManageResourcesController {
                         resource.setCapacity(capacity);
                         resource.setStatus(status);
                     } else {
-                        resource = new Resource(null, name, type, location, capacity, status, "ADMIN001");
+                        resource = Resource.create(null, name, type, location, capacity, status, "ADMIN001");
                     }
                     return resource;
                 } catch (Exception e) {

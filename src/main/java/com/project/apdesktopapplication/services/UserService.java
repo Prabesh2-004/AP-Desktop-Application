@@ -1,5 +1,6 @@
 package com.project.apdesktopapplication.services;
 
+import com.project.apdesktopapplication.generics.ResourceManager;
 import com.project.apdesktopapplication.models.User;
 import com.project.apdesktopapplication.utils.DataManager;
 import com.project.apdesktopapplication.utils.PasswordHasher;
@@ -7,8 +8,15 @@ import com.project.apdesktopapplication.utils.PasswordHasher;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Business layer for user accounts. Data is held in a generic
+ * ResourceManager<User> and persisted to users.txt via DataManager.
+ * Implemented as a Singleton so every controller shares one authoritative
+ * in-memory copy of the user list.
+ */
 public class UserService {
-    private List<User> users;
+
+    private final ResourceManager<User> users = new ResourceManager<>();
     private static UserService instance;
 
     private UserService() {
@@ -23,52 +31,44 @@ public class UserService {
     }
 
     private void loadUsers() {
-        users = new ArrayList<>();
         List<String> lines = DataManager.readUsers();
         if (lines.isEmpty()) {
             createDefaultAdmin();
         } else {
             for (String line : lines) {
-                users.add(User.fromString(line));
+                User u = User.fromString(line);
+                if (u != null) users.add(u);
             }
         }
     }
 
     private void createDefaultAdmin() {
         // Default admin password is hashed too, so authenticate() below works for it as well.
-        User admin = new User("ADMIN001", "admin", "System Admin", PasswordHasher.hash("admin123"), "ADMIN", "ACTIVE");
+        User admin = User.create("ADMIN001", "admin", "System Admin",
+                PasswordHasher.hash("admin123"), "ADMIN", "ACTIVE");
         users.add(admin);
         saveUsers();
     }
 
     public void saveUsers() {
         List<String> lines = new ArrayList<>();
-        for (User user : users) {
+        for (User user : users.getAll()) {
             lines.add(user.toString());
         }
         DataManager.writeUsers(lines);
     }
 
     public List<User> getAllUsers() {
-        return new ArrayList<>(users);
+        return users.getAll();
     }
 
     public User getUserById(String userId) {
-        for (User user : users) {
-            if (user.getUserId().equals(userId)) {
-                return user;
-            }
-        }
-        return null;
+        return users.getById(userId);
     }
 
     public User getUserByUsername(String username) {
-        for (User user : users) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
-                return user;
-            }
-        }
-        return null;
+        return users.findAll(u -> u.getUsername().equalsIgnoreCase(username))
+                .stream().findFirst().orElse(null);
     }
 
     public User authenticate(String username, String rawPassword) {
@@ -95,20 +95,15 @@ public class UserService {
     }
 
     public boolean updateUser(User user) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getUserId().equals(user.getUserId())) {
-                users.set(i, user);
-                saveUsers();
-                return true;
-            }
-        }
-        return false;
+        boolean ok = users.update(user);
+        if (ok) saveUsers();
+        return ok;
     }
 
     public boolean deleteUser(String userId) {
         User user = getUserById(userId);
         if (user != null && !user.getRole().equals("ADMIN")) {
-            users.remove(user);
+            users.removeById(userId);
             saveUsers();
             return true;
         }
@@ -120,6 +115,6 @@ public class UserService {
     }
 
     public long getActiveUsers() {
-        return users.stream().filter(u -> u.getStatus().equals("ACTIVE")).count();
+        return users.count(u -> u.getStatus().equals("ACTIVE"));
     }
 }

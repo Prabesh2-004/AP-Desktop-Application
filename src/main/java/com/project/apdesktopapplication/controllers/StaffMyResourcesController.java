@@ -208,7 +208,7 @@ public class StaffMyResourcesController {
                         resource.setStatus(status);
                     } else {
                         // New resource - set creator as current user
-                        resource = new Resource(null, name, type, location, capacity, status, currentUser.getUserId());
+                        resource = Resource.create(null, name, type, location, capacity, status, currentUser.getUserId());
                     }
                     return resource;
                 } catch (Exception e) {

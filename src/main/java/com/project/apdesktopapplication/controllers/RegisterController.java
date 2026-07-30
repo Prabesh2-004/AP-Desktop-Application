@@ -54,7 +54,7 @@ public class RegisterController {
         // Password is hashed here - the raw password never gets stored or passed onward.
         String hashedPassword = PasswordHasher.hash(rawPassword);
 
-        User newUser = new User(
+        User newUser = User.create(
                 "USR" + System.currentTimeMillis(),
                 username,
                 fullName,

@@ -6,9 +6,12 @@ import com.project.apdesktopapplication.models.User;
 import com.project.apdesktopapplication.services.BookingService;
 import com.project.apdesktopapplication.services.ResourceService;
 import com.project.apdesktopapplication.services.UserService;
+import com.project.apdesktopapplication.exceptions.UnauthorizedAccessException;
+import com.project.apdesktopapplication.utils.SessionManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -121,22 +124,33 @@ public class AdminPendingApprovalsController {
     }
 
     private void handleApprove(Booking booking) {
-        booking.setStatus("APPROVED");
-        bookingService.updateBooking(booking);
-
-        Resource resource = resourceService.getResourceById(booking.getResourceId());
-        if (resource != null) {
-            resource.setStatus("BOOKED");
-            resourceService.updateResource(resource);
+        try {
+            User actor = SessionManager.getInstance().getCurrentUser();
+            // Service verifies the actor may approve (polymorphic canApproveBookings())
+            // and updates the linked resource status internally.
+            bookingService.approveBooking(actor, booking.getBookingId());
+            loadData();
+        } catch (UnauthorizedAccessException e) {
+            showError(e.getMessage());
         }
-
-        loadData();
     }
 
     private void handleReject(Booking booking) {
-        booking.setStatus("REJECTED");
-        bookingService.updateBooking(booking);
-        loadData();
+        try {
+            User actor = SessionManager.getInstance().getCurrentUser();
+            bookingService.rejectBooking(actor, booking.getBookingId());
+            loadData();
+        } catch (UnauthorizedAccessException e) {
+            showError(e.getMessage());
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Action not allowed");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML

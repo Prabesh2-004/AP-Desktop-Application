@@ -6,9 +6,11 @@ import com.project.apdesktopapplication.models.User;
 import com.project.apdesktopapplication.services.BookingService;
 import com.project.apdesktopapplication.services.ResourceService;
 import com.project.apdesktopapplication.services.UserService;
+import com.project.apdesktopapplication.exceptions.UnauthorizedAccessException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -177,23 +179,31 @@ public class StaffPendingApprovalsController {
     }
 
     private void handleApprove(Booking booking) {
-        booking.setStatus("APPROVED");
-        bookingService.updateBooking(booking);
-
-        // Update resource status
-        Resource resource = resourceService.getResourceById(booking.getResourceId());
-        if (resource != null) {
-            resource.setStatus("BOOKED");
-            resourceService.updateResource(resource);
+        try {
+            // currentUser is the logged-in staff member; the service confirms the
+            // role is allowed to approve before changing anything.
+            bookingService.approveBooking(currentUser, booking.getBookingId());
+            loadData();
+        } catch (UnauthorizedAccessException e) {
+            showError(e.getMessage());
         }
-
-        loadData();
     }
 
     private void handleReject(Booking booking) {
-        booking.setStatus("REJECTED");
-        bookingService.updateBooking(booking);
-        loadData();
+        try {
+            bookingService.rejectBooking(currentUser, booking.getBookingId());
+            loadData();
+        } catch (UnauthorizedAccessException e) {
+            showError(e.getMessage());
+        }
+    }
+
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Action not allowed");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     @FXML

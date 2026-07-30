@@ -1,6 +1,10 @@
 package com.project.apdesktopapplication.models;
 
-public class Booking {
+import com.project.apdesktopapplication.generics.Identifiable;
+
+// A booking record. Implements Identifiable (getId -> bookingId) so it can be
+// stored and looked up by the generic ResourceManager<T> like every other entity.
+public class Booking implements Identifiable {
     private String bookingId;
     private String userId;
     private String resourceId;
@@ -20,6 +24,10 @@ public class Booking {
         this.endTime = endTime;
         this.status = status;
     }
+
+    // Identifiable
+    @Override
+    public String getId() { return bookingId; }
 
     // Getters and Setters
     public String getBookingId() { return bookingId; }

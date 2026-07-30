@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ButtonType;
 import javafx.geometry.Insets;
+import com.project.apdesktopapplication.utils.PasswordHasher;
 
 import java.util.Optional;
 
@@ -188,14 +189,14 @@ public class AdminManageUsersController {
                     user.setStatus(status);
                     String newPassword = passwordField.getText().trim();
                     if (!newPassword.isEmpty()) {
-                        user.setPassword(newPassword);
+                        user.setPassword(PasswordHasher.hash(newPassword));
                     }
                 } else {
                     String password = passwordField.getText().trim();
                     if (password.isEmpty()) {
                         password = "password123";
                     }
-                    user = new User(null, username, fullName, password, role, status);
+                    user = User.create(null, username, fullName, PasswordHasher.hash(password), role, status);
                 }
                 return user;
             }

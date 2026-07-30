@@ -1,8 +1,6 @@
 RES001|Conference Room A|Meeting Room|Building A - Floor 1|20|AVAILABLE|ADMIN001
-RES002|Computer Lab|Lab|Building B - Floor 2|30|AVAILABLE|ADMIN001
 RES003|Auditorium|Event Space|Building C - Floor 1|100|MAINTENANCE|ADMIN001
-RES004|Study Room 1|Study Room|Library - Floor 1|4|AVAILABLE|ADMIN001
 RES005|Study Room 2|Study Room|Library - Floor 2|6|AVAILABLE|ADMIN001
 RES006|Projector Setup|Equipment|Building A - Floor 2|1|BOOKED|ADMIN001
-RES007|Hackathon|Study Room|E-106|100|AVAILABLE|ADMIN001
-RES008|Git/GitHub Workshop|Study Room|203|150|BOOKED|USR1785169050229
+RES007|Hackathon|Study Room|E-106|100|BOOKED|ADMIN001
+RES008|Git/GitHub Workshop|Lab|203|120|AVAILABLE|USR1785169050229
